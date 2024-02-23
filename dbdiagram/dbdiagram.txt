@@ -1,0 +1,53 @@
+Table films {
+  id int [primary key]
+  name varchar
+  description varchar
+  release_date date
+  duration int
+  rating enum
+}
+
+Table users {
+  id int [primary key]
+  email varchar
+  login varchar
+  name varchar
+  birthday date
+}
+
+Table likes {
+  film_id int
+  user_id int
+}
+
+Table friends {
+  user_id int
+  friend_id int
+  is_confirmed boolean
+}
+
+Table genres {
+  id int
+  title varchar
+}
+
+Table film_genre {
+  film_id int
+  genre_id int
+}
+
+Enum rating {
+  r
+}
+
+Ref: "films"."id" < "likes"."film_id"
+
+Ref: "users"."id" < "likes"."user_id"
+
+Ref: "users"."id" < "friends"."user_id"
+
+Ref: "users"."id" < "friends"."friend_id"
+
+Ref: "films"."id" < "film_genre"."film_id"
+
+Ref: "film_genre"."genre_id" - "genres"."id"
