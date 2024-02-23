@@ -28,13 +28,15 @@ CREATE TABLE users (
 
 CREATE TABLE likes (
         film_id int REFERENCES films(id),
-        user_id int REFERENCES users(id)
+        user_id int REFERENCES users(id),
+        UNIQUE(film_id, user_id)
 );
 
 CREATE TABLE friends(
     user_id int REFERENCES users(id),
     friend_id int REFERENCES users(id),
-    is_confirmed boolean DEFAULT false
+    is_confirmed boolean DEFAULT false,
+    UNIQUE(user_id, friend_id)
 );
 
 CREATE TABLE genres (
@@ -44,5 +46,6 @@ CREATE TABLE genres (
 
 CREATE TABLE film_genre (
     film_id int REFERENCES films(id),
-    genre_id int REFERENCES genres(id)
+    genre_id int REFERENCES genres(id),
+    UNIQUE (film_id, genre_id)
 );
