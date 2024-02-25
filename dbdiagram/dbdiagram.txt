@@ -50,4 +50,4 @@ Ref: "users"."id" < "friends"."friend_id"
 
 Ref: "films"."id" < "film_genre"."film_id"
 
-Ref: "film_genre"."genre_id" - "genres"."id"
+Ref: "film_genre"."genre_id" > "genres"."id"
