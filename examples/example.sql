@@ -1,26 +1,34 @@
+insert into ratings (name) values
+('G'),
+('PG'),
+('PG-13'),
+('R'),
+('NC-17');
 
-INSERT INTO genres (id, title) VALUES
-(1000, 'Комедия'),
-(2000, 'Ужасы'),
-(3000, 'Боевик'),
-(4000, 'Приключения');
+insert into genres (name) values
+('Комедия'),
+('Драма'),
+('Мультфильм'),
+('Триллер'),
+('Документальный'),
+('Боевик');
 
-INSERT INTO films (name, description, release_date, duration, rating) VALUES
-('Приключенческие приключения', 'Длинное описание фильма', '2015-03-12', 115, 'R'),
-('Приключенческие ужастики', 'Длинное описание фильма', '2020-03-12', 115, 'NC-17'),
-('Комедийный боевик', 'Длинное описание фильма', '2017-03-12', 115, 'PG-13');
+insert into films (name, description, release_date, duration, mpa) values
+('Приключенческие приключения', 'Длинное описание фильма', '2015-03-12', 5150, 4),
+('Приключенческие ужастики', 'Длинное описание фильма', '2020-03-12', 6115, 5),
+('Комедийный боевик', 'Длинное описание фильма', '2017-03-12', 7115, 3);
 
-INSERT INTO film_genre (film_id, genre_id)
-(SELECT films.id, genres.id FROM films LEFT OUTER JOIN genres ON genres.id = 4000
-WHERE name = 'Приключенческие приключения');
+insert into film_genre (film_id, genre_id)
+(select films.id, genres.id from films left outer join genres on genres.id = 2
+where films.name = 'Приключенческие приключения');
 
-INSERT INTO film_genre (film_id, genre_id)
-(SELECT films.id, genres.id FROM films LEFT OUTER JOIN genres ON genres.id IN (4000,2000)
-WHERE name = 'Приключенческие ужастики');
+insert into film_genre (film_id, genre_id)
+(select films.id, genres.id from films left outer join genres on genres.id in (6,4)
+where films.name = 'Приключенческие ужастики');
 
-INSERT INTO film_genre (film_id, genre_id)
-(SELECT films.id, genres.id FROM films LEFT OUTER JOIN genres ON genres.id IN (1000, 3000)
-WHERE name = 'Комедийный боевик');
+insert into film_genre (film_id, genre_id)
+(select films.id, genres.id from films left outer join genres on genres.id in (1,6)
+where films.name = 'Комедийный боевик');
 
 insert into users (email, login, name, birthday) values ('iheinke0@google.com.hk', 'Ivor', 'Ivor Heinke', '1998-09-03');
 insert into users (email, login, name, birthday) values ('ffills1@biglobe.ne.jp', 'Fraze', 'Fraze Fills', '2011-05-01');
@@ -53,28 +61,26 @@ insert into users (email, login, name, birthday) values ('keliasr@taobao.com', '
 insert into users (email, login, name, birthday) values ('kstrothers@hp.com', 'Karmen', 'Karmen Strother', '2008-07-18');
 insert into users (email, login, name, birthday) values ('mjackst@constantcontact.com', 'Marissa', 'Marissa Jacks', '2006-09-21');
 
-INSERT INTO likes (film_id, user_id)
-SELECT films.id, users.id
-FROM films
-INNER JOIN users
-ON films.id % 2 = 0 AND users.id % 2 = 1;
+insert into likes (film_id, user_id)
+select films.id, users.id
+from films
+inner join users
+on films.id % 2 = 0 AND users.id % 2 = 1;
 
-INSERT INTO likes (film_id, user_id)
-SELECT films.id, users.id
-FROM films
-INNER JOIN users
-ON films.id % 2 = 1 AND users.id > 0;
+insert into likes (film_id, user_id)
+select films.id, users.id
+from films
+inner join users
+on films.id % 2 = 1 AND users.id > 0;
 
-INSERT INTO friends (user_id, friend_id)
-SELECT u1.id, u2.id
-FROM users AS u1
-INNER JOIN users AS u2
-ON u1.id % 2 = 0 AND u2.id % 2 = 1;
+insert into friendship (user_id, friend_id)
+select u1.id, u2.id
+from users as u1
+inner join users as u2
+on u1.id % 2 = 0 AND u2.id % 2 = 1;
 
-INSERT INTO friends (user_id, friend_id)
-SELECT u1.id, u2.id
-FROM users AS u1
-INNER JOIN users AS u2
-ON u1.id % 3 = 1 AND u2.id % 2 = 0;
-
-UPDATE friends SET is_confirmed = true;
+insert into friendship (user_id, friend_id)
+select u1.id, u2.id
+from users as u1
+inner join users as u2
+on u1.id % 3 = 1 AND u2.id % 2 = 0;

@@ -4,7 +4,7 @@ Table films {
   description varchar
   release_date date
   duration int
-  rating enum
+  rating int
 }
 
 Table users {
@@ -20,7 +20,7 @@ Table likes {
   user_id int
 }
 
-Table friends {
+Table friendship {
   user_id int
   friend_id int
   is_confirmed boolean
@@ -28,7 +28,7 @@ Table friends {
 
 Table genres {
   id int
-  title varchar
+  name varchar
 }
 
 Table film_genre {
@@ -36,18 +36,21 @@ Table film_genre {
   genre_id int
 }
 
-Enum rating {
-  r
+Table ratings {
+  id int
+  name varchar
 }
 
 Ref: "films"."id" < "likes"."film_id"
 
 Ref: "users"."id" < "likes"."user_id"
 
-Ref: "users"."id" < "friends"."user_id"
+Ref: "users"."id" < "friendship"."user_id"
 
-Ref: "users"."id" < "friends"."friend_id"
+Ref: "users"."id" < "friendship"."friend_id"
 
 Ref: "films"."id" < "film_genre"."film_id"
 
 Ref: "film_genre"."genre_id" > "genres"."id"
+
+Ref: "ratings"."id" - "films"."rating"
