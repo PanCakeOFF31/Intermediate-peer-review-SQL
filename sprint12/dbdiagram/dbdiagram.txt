@@ -1,0 +1,82 @@
+Table film {
+  id int [primary key]
+  name varchar
+  description varchar
+  release_date date
+  duration int
+  mpa int
+  rate double
+}
+
+Table user {
+  id int [primary key]
+  email varchar
+  login varchar
+  name varchar
+  birthday date
+}
+
+Table like {
+  film_id int
+  user_id int
+}
+
+Table friendship {
+  user_id int
+  friend_id int
+  is_confirmed boolean
+}
+
+Table genre {
+  id int
+  name varchar
+}
+
+Table film_genre {
+  film_id int
+  genre_id int
+}
+
+Table mpa {
+  id int
+  name varchar
+}
+
+Table producer {
+  id int
+  first_name varchar
+  last_name varchar
+}
+
+Table film_producer {
+  film_id int
+  producer_id int
+}
+
+Table film_rate {
+  film_id int
+  user_id int
+  user_rate double
+}
+
+Ref: "film"."id" < "like"."film_id"
+
+Ref: "user"."id" < "like"."user_id"
+
+Ref: "user"."id" < "friendship"."user_id"
+
+Ref: "user"."id" < "friendship"."friend_id"
+
+Ref: "film"."id" < "film_genre"."film_id"
+
+Ref: "film_genre"."genre_id" > "genre"."id"
+
+Ref: "mpa"."id" - "film"."mpa"
+
+Ref: "film_producer"."producer_id" > "producer"."id"
+
+Ref: "film"."id" < "film_producer"."film_id"
+
+Ref: "film"."id" < "film_rate"."film_id"
+
+Ref: "user"."id" < "film_rate"."user_id"
